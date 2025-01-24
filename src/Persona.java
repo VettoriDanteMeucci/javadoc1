@@ -28,24 +28,23 @@ public class Persona {
 
     private String checkCF(String code) throws Exception{
         code = code.toUpperCase();
-        String error = "Il formato del CF non è valido";
-        if(code.length()!= 16 || isAlphanumeric(code))
-            throw new Exception(error);
+        if(code.length()!= 16 || !isAlphanumeric(code))
+            throw new Exception("Non lungo 16 char o non alfanumerico" );
 
         for(int i = 0 ; i <= 6; i++){
-            if(!isVowel(code.charAt(i))){
-                throw new Exception(error);
+            if(isVowel(code.charAt(i))){
+                throw new Exception("Uno dei primi sei caratteri non e' valido");
             }
         }
 
         if(!isNumber(code.charAt(6)) || !isNumber(code.charAt(7)) )
-            throw new Exception(error);
+            throw new Exception("Non sono posizionati correttamente i valori in 7-8");
 
         return code;
     }
 
     private boolean isVowel(char val){
-        return "aeiou".indexOf(val) != -1;
+        return "AEIOU".indexOf(val) != -1;
     }
 
     private boolean isNumber(char c){
